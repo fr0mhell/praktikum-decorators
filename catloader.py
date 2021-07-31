@@ -1,5 +1,4 @@
 from constants import API_KEY
-from decorators import timer
 
 from pathlib import Path
 from typing import List
@@ -11,7 +10,7 @@ HEADERS = {
     'x-api-key': API_KEY,
 }
 SIZE = 'full'
-LIMIT = 10
+LIMIT = 100
 FOLDER = './cats'
 
 # Create folder if it does not exist
