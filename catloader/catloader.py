@@ -1,5 +1,4 @@
-from constants import API_KEY
-
+import os
 from pathlib import Path
 from typing import List
 import requests
@@ -7,10 +6,10 @@ import requests
 
 API_URL = 'https://api.thecatapi.com/v1/images/search'
 HEADERS = {
-    'x-api-key': API_KEY,
+    'x-api-key': os.getenv('CAT_API_KEY'),
 }
 SIZE = 'full'
-LIMIT = 100
+LIMIT = 10
 FOLDER = './cats'
 
 # Create folder if it does not exist
@@ -38,6 +37,8 @@ def download_cat(cat_url: str, cat_folder: str = FOLDER):
             f'unexpectedly contains trailing slash symbol ("/")'
         )
 
+    print(f'Starting download or {cat_url}')
+
     cat_picture = requests.get(cat_url, headers=HEADERS)
     # Extract filename from URL:
     # https://cdn2.thecatapi.com/images/RfpiTrLZ4.jpg
@@ -48,6 +49,8 @@ def download_cat(cat_url: str, cat_folder: str = FOLDER):
 
     with open(cat_filepath, 'wb') as cat_file:
         cat_file.write(cat_picture.content)
+
+    print(f'{cat_url} downloaded and saved into {cat_filepath}')
 
 
 def download_cats(cat_urls: List[str]):

@@ -16,3 +16,35 @@
 с какой скоростью скачиваются картинки с котиками в зависимости от количества потоков!
 
 Полную API документацию ищи [здесь](https://docs.thecatapi.com/api-reference/images/images-search)
+
+## Запускаем в docker!
+
+Собираем образ
+
+```shell
+docker build . -t catloader
+```
+
+Запускаем образ в новом контейнере
+
+```shell
+docker run catloader
+```
+
+Создаем именованный контейнер для многократного запуска
+
+```shell
+docker create --name catloader catloader
+```
+
+Проваливаемся внутри контейнера
+
+```shell
+docker start catloader
+docker exec -it catloader /bin/bash
+```
+Запускаем контейнер с папкой проекта в качестве volume
+
+```shell
+docker run -v "$(pwd)":/catloader  --rm catloader
+```
